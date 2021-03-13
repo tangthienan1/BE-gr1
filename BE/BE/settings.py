@@ -38,13 +38,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',  # for use custom sign up
-    'api'
-    'api.contribution'
+    'api',
+    'api.contribution',
     'api.comment',
     'api.faculty',
     'api.info',
     'api.role',
-    'api.user'
+    'api.user',
 ]
 
 MIDDLEWARE = [
