@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # for use custom sign up
     'api'
+    'api.contribution'
+    'api.comment',
+    'api.faculty',
+    'api.info',
+    'api.role',
+    'api.user'
 ]
 
 MIDDLEWARE = [
