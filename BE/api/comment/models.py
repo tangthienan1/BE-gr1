@@ -1,5 +1,6 @@
 from django.db import models
-
+from ..info.models import Info
+from ..contribution.models import Contribution
 # Create your models here.
 
 
