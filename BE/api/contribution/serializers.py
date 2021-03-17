@@ -4,11 +4,10 @@ from .models import Contribution
 # from django.contrib.auth.models import User
 
 
-class ContributionSerializer(serializers.HyperlinkedModelSerializer):
+class ContributionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contribution
-        fields = ['contributionID', 'subDate', 'aprvDate', 'status', 'img', 'document', 'infoID']
-
+        fields = '__all__'
 
 
 

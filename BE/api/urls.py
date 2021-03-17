@@ -12,8 +12,9 @@ urlpatterns = [
     path('info/<int:pk>/',views.InfoDetail.as_view(),name='info-detail'),
     path('role/',views.RoleList.as_view(),name='role-list'),
     path('role/<int:pk>/',views.RoleDetail.as_view(),name='role-detail'),
-    path('contribution/',views.ContributionList.as_view(),name='contribution-list'),
-    path('contribution/<int:pk>/',views.ContributionDetail.as_view(),name='contribution-detail'),
     path('faculty/',views.FacultyList.as_view(),name='faculty-list'),
     path('faculty/<int:pk>/',views.FacultyDetail.as_view(),name='faculty-detail'),
+
+
+    path('contribution/', include('contribution.urls')),
 ]
