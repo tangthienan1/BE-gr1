@@ -5,8 +5,8 @@ from .models import Contribution
 
 @admin.register(Contribution)
 class ContributionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'approval_date', 'status')
-    list_filter = ('status', 'submission_date', 'approval_date', 'author')
+    list_display = ('title', 'slug', 'author', 'faculty', 'approval_date', 'status')
+    list_filter = ('status', 'submission_date', 'approval_date', 'author', 'faculty')
     search_fields = ('title',)
     prepopulated_fields = {'slug':('title',)}
     raw_id_fields = ('author',)

@@ -12,10 +12,12 @@ class Contribution(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,unique_for_date='approval_date')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contributions')
-    document = models.FileField(upload_to='documents/')
-    image = models.ImageField(upload_to='images/')
-    approval_date = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contributions') # Temporarily use
+    faculty = models.CharField(max_length=50)   # For temporarily use 
+    #fix follow to rest-framework
+    document = models.FileField(upload_to='documents/', blank=True) # modify later with rest framework
+    image = models.ImageField(upload_to='images/', blank=True) # modify later with rest framework
+    approval_date = models.DateTimeField(default=None)
     submission_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=STATUS, default='pending')
