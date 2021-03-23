@@ -1,5 +1,6 @@
 from django.db import models
-
+from ..role.models import Role
+from ..faculty.models import Faculty
 # Create your models here.
 
 
