@@ -15,6 +15,7 @@ from .contribution.views import ContributionList
 from .contribution.views import ContributionDetail
 from .info.views import InfoList
 from .info.views import InfoDetail
+from .user.views import CustomUserCreate
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('contribution/<int:pk>/',ContributionDetail.as_view(),name='contribution-detail'),
     path('faculty/',FacultyList.as_view(),name='faculty-list'),
     path('faculty/<int:pk>/',FacultyDetail.as_view(),name='faculty-detail'),
+    path('register/', CustomUserCreate.as_view(), name="create_user"),
     path('comment/',FacultyList.as_view(),name='comment-list'),
     path('comment/<int:pk>/',FacultyDetail.as_view(),name='comment-detail'),
 ]
