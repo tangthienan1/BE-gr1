@@ -1,10 +1,6 @@
-from ..info.models import Info
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-
-class CustomAccountManager(BaseUserManager):
+# Create your models here.
 
 
 class User(models.Model):
@@ -14,5 +10,4 @@ class User(models.Model):
     infoID = models.ForeignKey('Info', on_delete=models.CASCADE,)
 
     def __str__(self):
-        return self.username
-
+        return self.userName
