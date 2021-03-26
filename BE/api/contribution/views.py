@@ -8,11 +8,12 @@ from rest_framework import generics
 from .models import Contribution
 from .serializers import ContributionSerializer
 
+
 class ContributionList(generics.ListAPIView):
     queryset = Contribution.objects.all()
     serializer_class = ContributionSerializer
 
+
 class ContributionDetail(generics.RetrieveAPIView):
     queryset = Contribution.objects.all()
     serializer_class = ContributionSerializer
-

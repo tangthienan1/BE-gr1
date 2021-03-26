@@ -11,8 +11,8 @@ class Info(models.Model):
     DoB = models.DateField(auto_now=False, auto_now_add=False, blank=True)
     Phone = models.CharField(max_length=11)
     Email = models.EmailField(max_length=100)
-    roleID = models.ForeignKey('Role', on_delete=models.CASCADE,)
-    facultyID = models.ForeignKey('Faculty', on_delete=models.CASCADE,)
+    roleID = models.ForeignKey(Role, on_delete=models.CASCADE)
+    facultyID = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     pass
 
     def __str__(self):
