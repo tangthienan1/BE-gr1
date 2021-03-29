@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'BE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
+        'NAME': 'gr1',
         'USER': 'postgres',
-        'PASSWORD': '822596',
+        'PASSWORD': 'thienan123',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -132,7 +132,6 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.joinpath('media')
-
 
 CORS_ALLOW_ALL_ORIGINS = True
 

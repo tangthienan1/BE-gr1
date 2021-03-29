@@ -8,11 +8,12 @@ from rest_framework import generics
 from .models import Faculty
 from .serializers import FacultySerializer
 
+
 class FacultyList(generics.ListAPIView):
     queryset = Faculty.objects.all()
     serializer_class = FacultySerializer
 
+
 class FacultyDetail(generics.RetrieveAPIView):
     queryset = Faculty.objects.all()
     serializer_class = FacultySerializer
-
