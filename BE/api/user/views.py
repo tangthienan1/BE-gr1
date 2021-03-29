@@ -1,8 +1,3 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import CustomUserSerializer
-from rest_framework.permissions import AllowAny
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,13 +8,11 @@ from rest_framework import generics
 from .models import User
 from .serializers import CustomUserSerializer
 
-
-class UserList(generics.ListAPIView):
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
 
-
-class UserDetail(generics.RetrieveAPIView):
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
 
