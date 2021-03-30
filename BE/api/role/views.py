@@ -9,11 +9,7 @@ from .models import Role
 from .serializers import RoleSerializer
 
 
-class RoleList(viewsets.ModelViewSet):
+class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
-
-class RoleDetail(viewsets.ModelViewSet):
-    queryset = Role.objects.all()
-    serializer_class = RoleSerializer

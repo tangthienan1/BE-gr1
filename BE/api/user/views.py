@@ -9,13 +9,10 @@ from .models import User
 from .serializers import CustomUserSerializer
 from rest_framework.permissions import AllowAny
 
-class UserList(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
 
-class UserDetail(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = CustomUserSerializer
 
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
