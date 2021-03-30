@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from ..info.models import Info
 
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, username, password):
@@ -15,19 +16,17 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
-    def create_user(self, username, password=None, infoID = Info):
-
+    def create_user(self, username, password=None, infoID=None):
         if not username:
             raise ValueError(_('You must provide a username'))
 
-        user = self.model(username=username,infoID=infoID)
+        user = self.model(username=username, infoID=infoID)
         user.set_password(password)
         user.save()
         return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
     username = models.CharField(max_length=150, unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -38,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'username'
+
     # REQUIRED_FIELDS = ['username']
 
     def __str__(self):
