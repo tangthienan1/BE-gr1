@@ -6,6 +6,11 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'', views.UserViewSet)
 
-urlpatterns = [
+urlpaterns = [
     path('', include(router.urls)),
+    path('', views.UserViewSet, name='user-list'),
+    path('<int:pk>/', views.UserViewSet, name='user-detail'),
+    path('register/', views.CustomUserCreate, name="create_user"),
 ]
+
+
