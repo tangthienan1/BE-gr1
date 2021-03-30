@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
+    'corsheaders',    # This will give u bug everytime u merge code
     'rest_framework',
     'rest_framework.authtoken',  # for use custom sign up
     'api',
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'BE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gr1',
+        'NAME': 'Long',
         'USER': 'postgres',
-        'PASSWORD': 'thienan123',
+        'PASSWORD': 'long123',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
