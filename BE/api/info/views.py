@@ -7,13 +7,14 @@ from rest_framework import mixins
 from rest_framework import generics
 from .models import Info
 from .serializers import InfoSerializer
+from rest_framework import viewsets
 
 
-class InfoList(generics.ListAPIView):
+class InfoList(viewsets.ModelViewSet):
     queryset = Info.objects.all()
     serializer_class = InfoSerializer
 
 
-class InfoDetail(generics.RetrieveAPIView):
+class InfoDetail(viewsets.ModelViewSet):
     queryset = Info.objects.all()
     serializer_class = InfoSerializer
