@@ -10,8 +10,8 @@ router.register(r'', views.FacultyViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('faculty/', views.FacultyViewSet, name='faculty-list'),
-    path('faculty/<int:pk>/', views.FacultyViewSet, name='faculty-detail'),
+    path('', views.FacultyViewSet, name='faculty-list'),
+    path('<int:pk>/', views.FacultyViewSet, name='faculty-detail'),
 ]
 
 

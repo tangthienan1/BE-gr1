@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'django_filters',
     'rest_framework.authtoken',  # for use custom sign up
     'api',
     'api.contribution',
@@ -87,9 +88,9 @@ WSGI_APPLICATION = 'BE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gr1',
+        'NAME': 'testdb',
         'USER': 'postgres',
-        'PASSWORD': 'thienan123',
+        'PASSWORD': '822596',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
