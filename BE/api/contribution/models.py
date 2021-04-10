@@ -5,7 +5,7 @@ from ..info.models import Info
 
 class Contribution(models.Model):
     contribution_id = models.AutoField(primary_key=True)
-    sub_date = models.DateTimeField(blank=True)
+    sub_date = models.TimeField(auto_now_add=True)
     aprv_date = models.DateTimeField(blank=True, null=True)
     status = models.BooleanField(default=False)
     img = models.ImageField(upload_to='images/', blank=True, null=True)
