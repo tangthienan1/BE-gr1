@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Role(models.Model):
-    roleID = models.AutoField(primary_key=True)
-    roleName = models.CharField(max_length=100)
+    role_id = models.AutoField(primary_key=True)
+    role_name = models.CharField(max_length=100)
     pass
 
     def __str__(self):

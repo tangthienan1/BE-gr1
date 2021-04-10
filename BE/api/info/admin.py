@@ -4,7 +4,7 @@ from .models import Info
 
 
 class InfoAdmin(admin.ModelAdmin):
-    list_display = ('infoID', 'Name', 'Address', 'DoB', 'Phone', 'Email', 'roleID', 'facultyID')
+    list_display = ('info_id', 'name', 'address', 'dob', 'phone', 'email', 'role_id', 'faculty_id')
 
 
 admin.site.register(Info, InfoAdmin)

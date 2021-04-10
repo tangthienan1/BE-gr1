@@ -4,7 +4,7 @@ from .models import Faculty
 
 
 class FacultyAdmin(admin.ModelAdmin):
-    list_display = ('facultyID', 'facultyName')
+    list_display = ('faculty_id', 'faculty_name')
 
 
 admin.site.register(Faculty, FacultyAdmin)

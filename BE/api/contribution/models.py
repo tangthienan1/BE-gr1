@@ -4,9 +4,9 @@ from ..info.models import Info
 
 
 class Contribution(models.Model):
-    contributionID = models.AutoField(primary_key=True)
-    subDate = models.DateTimeField(blank=True)
-    aprvDate = models.DateTimeField(blank=True, null=True)
+    contribution_id = models.AutoField(primary_key=True)
+    sub_date = models.DateTimeField(blank=True)
+    aprv_date = models.DateTimeField(blank=True, null=True)
     status = models.BooleanField(default=False)
     img = models.ImageField(upload_to='images/', blank=True, null=True)
     document = models.FileField(upload_to=None)

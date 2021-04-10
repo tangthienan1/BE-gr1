@@ -4,7 +4,7 @@ from .models import Contribution
 
 
 class ContributionAdmin(admin.ModelAdmin):
-    list_display = ('contributionID', 'subDate', 'aprvDate', 'status', 'img', 'document', 'infoID')
+    list_display = ('contribution_id', 'sub_date', 'aprv_date', 'status', 'img', 'document', 'infoID')
 
 
 admin.site.register(Contribution, ContributionAdmin)

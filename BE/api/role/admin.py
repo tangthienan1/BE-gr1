@@ -4,7 +4,7 @@ from .models import Role
 
 
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('roleID', 'roleName')
+    list_display = ('role_id', 'role_name')
 
 
 admin.site.register(Role, RoleAdmin)
