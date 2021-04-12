@@ -4,8 +4,8 @@ from ..info.models import Info
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=50, unique=True, default='Anonymous')
-    password = models.CharField(max_length=100)
+    # username = models.CharField(max_length=50, unique=True, default='Anonymous')
+    # password = models.CharField(max_length=100)
     # reference key to info
     info_id = models.ForeignKey(Info, on_delete=models.CASCADE, blank=True, null=True)
 

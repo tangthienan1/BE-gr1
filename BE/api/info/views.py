@@ -14,6 +14,7 @@ class InfoViewSet(viewsets.ModelViewSet):
     queryset = Info.objects.all()
     serializer_class = InfoSerializer
 
+
 class InfoListDetailfilter(viewsets.ModelViewSet):
     queryset = Info.objects.all()
     serializer_class = InfoSerializer
