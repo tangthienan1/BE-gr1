@@ -1,19 +1,55 @@
-from django.shortcuts import render
+from BE.api.info.models import Info
+from BE.api import faculty
+from BE.api.faculty.models import Faculty
+from . import forms
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from django.http import Http404
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import viewsets
+from rest_framework.decorators import action
 from .models import Contribution
 from .serializers import ContributionSerializer
+from django.core.mail import send_mail
 
-
-class ContributionList(generics.ListAPIView):
+class ContributionViewSet(viewsets.ModelViewSet):
     queryset = Contribution.objects.all()
     serializer_class = ContributionSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+
+    def perform_create(self, serializer):
+        serializer.save()
+        serializer = user
+        recipient = Info.objects.get(faculty_id=2, role_id=2)
+        recipient_email = recipient.email
+        send_mail(
+            'New Contribution Notification',
+            'A new contribution has been submitted within your faculty.\nPlease review within 14 days.',
+            'no-reply@example.com',
+            recipient, # coordinator emails here
+            fail_silently=False,
+        )
+
+    # Get list of contributions by faculty_id. Example URL : api/contribution/contributions/by-faculty/1/
+    @action(detail=False, method=['GET'], url_path='by-faculty/(?P<faculty_id>\d+)/$')
+    def faculty(self, request, *args, **kwargs):
+        queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'])
+        serializer = ContributionSerializer(queryset, many=True)
+        if not queryset:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.data)
 
 
-class ContributionDetail(generics.RetrieveAPIView):
-    queryset = Contribution.objects.all()
-    serializer_class = ContributionSerializer
+    # def retrieve(self, pk=None):
+    #     contributions = Contribution.objects.filter(faculty_id=pk)
+    
+    # def get_queryset(self):
+    #     queryset = self.queryset
+    #     contributions = queryset.filter(faculty=self.kwargs['faculty_id'])
+    #     return contributions
+
+
+
