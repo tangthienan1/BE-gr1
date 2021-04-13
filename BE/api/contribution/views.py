@@ -19,20 +19,21 @@ class ContributionViewSet(viewsets.ModelViewSet):
     serializer_class = ContributionSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
-
-    def perform_create(self, serializer):
+    def create(self, request, *args, **kwargs):
+        serializer = ContributionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
-        serializer = user
-        recipient = Info.objects.get(faculty_id=2, role_id=2)
+
+        recipient = Info.objects.filter(faculty_id=serializer.validated_data.get('faculty_id')).filter(role_id=2)
         recipient_email = recipient.email
         send_mail(
             'New Contribution Notification',
             'A new contribution has been submitted within your faculty.\nPlease review within 14 days.',
             'no-reply@example.com',
-            recipient, # coordinator emails here
+            recipient_email, # coordinator emails here
             fail_silently=False,
         )
-
+    
     # Get list of contributions by faculty_id. Example URL : api/contribution/contributions/by-faculty/1/
     @action(detail=False, method=['GET'], url_path='by-faculty/(?P<faculty_id>\d+)/$')
     def faculty(self, request, *args, **kwargs):
