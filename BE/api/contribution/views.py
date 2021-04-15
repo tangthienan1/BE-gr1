@@ -38,8 +38,8 @@ class ContributionViewSet(viewsets.ModelViewSet):
         send_mail(
             'New Contribution Notification',
             'A new contribution has been submitted within your faculty.\nPlease review within 14 days.',
-            'no-reply@example.com',
-            recipient_email, # coordinator emails here
+            'greenwichmagazinenotiy@gmail.com',
+            [recipient_email], # coordinator emails here
             fail_silently=False,
         )
     # Get list of contributions by faculty_id. Example URL : api/contribution/contributions/by-faculty/1/
