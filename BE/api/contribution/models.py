@@ -4,6 +4,7 @@ from django.db import models
 
 from ..faculty.models import Faculty
 from ..info.models import Info
+from . import validators
 
 # Create your models here.
 # class Conbtriution(models.Model):
@@ -17,11 +18,6 @@ from ..info.models import Info
 #                                     })
 #     object_id = models.PositiveIntegerField()
 #     contribution_object = GenericForeignKey('contribution_type','object_id')
-
-# Create your models here.
-def validation(file):
-    from django.core.exceptions import ValidationError
-    file_ext = os.path.splitext(file.name)
 
 # Create your models here.
 class Contribution(models.Model):
@@ -50,7 +46,8 @@ class Contribution(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='contributions')
     slug = models.SlugField(max_length=255,unique_for_date='approval_date') 
-    file = models.FileField(upload_to=get_path)
+    file = models.FileField(upload_to=get_path
+                            )
     approval_date = models.DateTimeField(default=None, blank=True, null=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
@@ -60,7 +57,6 @@ class Contribution(models.Model):
 
     class Meta:
         ordering = ('-approval_date',) # sorting in descending order. most recent approved appear first
-        abstract = True
 
     def __str__(self):
         return self.title

@@ -1,12 +1,6 @@
 from BE.api.info.models import Info
-from BE.api import faculty
-from BE.api.faculty.models import Faculty
-from . import forms
-from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-from django.http import Http404
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -19,11 +13,11 @@ class ContributionViewSet(viewsets.ModelViewSet):
     serializer_class = ContributionSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
+    '''
     def create(self, request, *args, **kwargs):
         serializer = ContributionSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         recipient = Info.objects.filter(faculty_id=serializer.validated_data.get('faculty_id')).filter(role_id=2)
         recipient_email = recipient.email
         send_mail(
@@ -33,7 +27,21 @@ class ContributionViewSet(viewsets.ModelViewSet):
             recipient_email, # coordinator emails here
             fail_silently=False,
         )
-    
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    '''
+    def perform_create(self, serializer):
+        current_info = self.request.user.info
+        serializer.save(author=current_info, faculty=current_info.faculty)
+        recipient = Info.objects.filter(faculty_id=serializer.validated_data.get('faculty_id')).filter(role_id=2)
+        recipient_email = recipient.email
+        send_mail(
+            'New Contribution Notification',
+            'A new contribution has been submitted within your faculty.\nPlease review within 14 days.',
+            'no-reply@example.com',
+            recipient_email, # coordinator emails here
+            fail_silently=False,
+        )
     # Get list of contributions by faculty_id. Example URL : api/contribution/contributions/by-faculty/1/
     @action(detail=False, method=['GET'], url_path='by-faculty/(?P<faculty_id>\d+)/$')
     def faculty(self, request, *args, **kwargs):
