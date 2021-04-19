@@ -10,4 +10,4 @@ class Faculty(models.Model):
     pass
 
     def __str__(self):
-        return self.facultyName
+        return self.faculty_name
