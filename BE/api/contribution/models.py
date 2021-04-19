@@ -7,21 +7,6 @@ from ..faculty.models import Faculty
 from ..info.models import Info
 from .validators import FileValidator
 
-# Create your models here.
-# class Conbtriution(models.Model):
-#     faculty = models.ForeignKey(Faculty, 
-#                                 on_delete=models.CASCADE,
-#                                 related_name='contributions')
-#     contribution_type = models.ForeignKey(ContentType,
-#                                      on_delete=models.CASCADE,
-#                                      limit_choices_to={
-#                                         'model__in':('document','image')
-#                                     })
-#     object_id = models.PositiveIntegerField()
-#     contribution_object = GenericForeignKey('contribution_type','object_id')
-
-# Create your models here.
-
 class Contribution(models.Model):
     IMAGE_EXTENSION = ['.jpg', '.jpeg', '.png']
     DOCUMENT_EXTENSION = ['.doc', '.docx', '.pdf']
@@ -63,14 +48,4 @@ class Contribution(models.Model):
 
     def __str__(self):
         return self.title
-    
-    
 
-
-    # @classmethod
-    # def get_serializer(cls):
-    #     class BaseSerializer(serializers.ModelSerializer):
-    #         class Meta:
-    #            model = cls
-    #            fields = '__all__'
-    #     return BaseSerializer
