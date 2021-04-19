@@ -9,7 +9,7 @@ class Contribution(models.Model):
     aprv_date = models.DateTimeField(blank=True, null=True)
     status = models.BooleanField(default=False)
     img = models.ImageField(upload_to='images/', blank=True, null=True)
-    document = models.FileField(upload_to=None)
+    document = models.FileField(upload_to='word/')
     infoID = models.ForeignKey(Info, on_delete=models.CASCADE)
     pass
 

@@ -12,4 +12,4 @@ class ContributionSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Contribution
-        fields = ['contributionID', 'subDate', 'aprvDate', 'status', 'img', 'document', 'infoID']
+        fields = "__all__"
