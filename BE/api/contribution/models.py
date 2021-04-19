@@ -19,9 +19,9 @@ class Contribution(models.Model):
     def get_path(instance, filename):
         file_ext = os.path.splitext(filename)[1]
         if file_ext in Contribution.IMAGE_EXTENSION:
-            file_path = "images/%Y/%m"
+            file_path = "images/"
         if file_ext in Contribution.DOCUMENT_EXTENSION:
-            file_path = "documents/%Y/%m"
+            file_path = "documents/"
         return file_path
 
     author = models.ForeignKey(Info, 

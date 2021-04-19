@@ -7,7 +7,7 @@ from .models import Info
 class InfoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Info
-        fields = ['info_id','name', 'address', 'dob', 'phone', 'email', 'role_id', 'faculty_id']
+        fields = ['info_id','name', 'address', 'dob', 'phone', 'email', 'role', 'faculty']
 
 
 

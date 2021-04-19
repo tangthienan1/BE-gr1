@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from .models import Contribution
 from ..info.models import Info
-from .serializers import ContributionSerializer
+from .serializers import ContributionCreateSerializer, ContributionSerializer
 from django.core.mail import send_mail
 
 class ContributionViewSet(viewsets.ModelViewSet):
@@ -15,9 +15,10 @@ class ContributionViewSet(viewsets.ModelViewSet):
     
     '''
     def create(self, request, *args, **kwargs):
-        serializer = ContributionSerializer(data=request.data)
+        serializer = ContributionCreateSerializer(data=request.data)
+        current_info = self.request.user.info
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(author=current_info, faculty=current_info.faculty)
         recipient = Info.objects.filter(faculty_id=serializer.validated_data.get('faculty_id')).filter(role_id=2)
         recipient_email = recipient.email
         send_mail(
@@ -29,6 +30,7 @@ class ContributionViewSet(viewsets.ModelViewSet):
         )
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    '''
     '''
     def perform_create(self, serializer):
         current_info = self.request.user.info
@@ -42,6 +44,8 @@ class ContributionViewSet(viewsets.ModelViewSet):
             [recipient_email], # coordinator emails here
             fail_silently=False,
         )
+    '''
+
     # Get list of contributions by faculty_id. Example URL : api/contribution/by-faculty/1/
     @action(detail=False, methods=['get'], url_path=r'^by-contribution/(?P<faculty_id>\d+)/$') #(?P<faculty_id>\d+)/$
     def faculty(self, request, *args, **kwargs):
