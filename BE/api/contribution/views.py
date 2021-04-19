@@ -1,10 +1,10 @@
-from BE.api.info.models import Info
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from .models import Contribution
+from ..info.models import Info
 from .serializers import ContributionSerializer
 from django.core.mail import send_mail
 
@@ -42,8 +42,8 @@ class ContributionViewSet(viewsets.ModelViewSet):
             [recipient_email], # coordinator emails here
             fail_silently=False,
         )
-    # Get list of contributions by faculty_id. Example URL : api/contribution/contributions/by-faculty/1/
-    @action(detail=False, method=['GET'], url_path='by-faculty/(?P<faculty_id>\d+)/$')
+    # Get list of contributions by faculty_id. Example URL : api/contribution/by-faculty/1/
+    @action(detail=False, methods=['get'], url_path=r'^by-contribution/(?P<faculty_id>\d+)/$') #(?P<faculty_id>\d+)/$
     def faculty(self, request, *args, **kwargs):
         queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'])
         serializer = ContributionSerializer(queryset, many=True)
