@@ -7,4 +7,4 @@ from .models import Comment
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id', 'content', 'time', 'contributionID', 'infoID']
+        fields = "__all__"

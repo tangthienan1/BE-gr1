@@ -7,7 +7,7 @@ from .models import Faculty
 class FacultySerializer(serializers.ModelSerializer):
     class Meta:
         model = Faculty
-        fields = ['faculty_id', 'faculty_name']
+        fields = "__all__"
 
 
 
