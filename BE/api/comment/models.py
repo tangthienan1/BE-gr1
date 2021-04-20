@@ -7,8 +7,8 @@ from ..contribution.models import Contribution
 class Comment(models.Model):
     content = models.TextField(max_length=500)
     time = models.TimeField(auto_now_add=True)
-    contribution_id = models.ForeignKey(Contribution, on_delete=models.CASCADE,)
-    info_id = models.ForeignKey(Info, on_delete=models.CASCADE,)
+    contribution = models.ForeignKey(Contribution, on_delete=models.CASCADE,)
+    info = models.ForeignKey(Info, on_delete=models.CASCADE,)
     pass
 
     def __str__(self):

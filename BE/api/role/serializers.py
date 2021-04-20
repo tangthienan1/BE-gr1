@@ -7,7 +7,7 @@ from .models import Role
 class RoleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Role
-        fields = ['roleID', 'roleName']
+        fields = "__all__"
 
 
 

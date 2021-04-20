@@ -23,9 +23,11 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     lookup_url_kwarg = 'user_id'
 
+
 class RegisterView(GenericAPIView):
     authentication_classes = []
     permission_classes = []
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         username = self.request.data.get('username')
@@ -81,3 +83,17 @@ class LoginView(APIView):
             'error_messages': serializer.errors,
             'error_code': 400
         }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def post(self, request):
+        response = Response()
+        print(response)
+        response.delete_cookie('access_token')
+        response.data = {
+            'message': 'success'
+        }
+        return response
