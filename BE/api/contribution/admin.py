@@ -5,10 +5,10 @@ from .models import Contribution
 
 @admin.register(Contribution)
 class ContributionAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'faculty', 'approval_date', 'status')
-    list_filter = ('status', 'submission_date', 'approval_date', 'author', 'faculty')
+    list_display = ('title', 'author', 'faculty', 'submission_date', 'status')
+    list_filter = ('status', 'submission_date', 'approval_date', 'author', 'faculty', 'status')
     search_fields = ('title',)
     prepopulated_fields = {'slug':('title',)}
     raw_id_fields = ('author',)
-    date_hierarchy = 'approval_date'
-    ordering = ('status', 'approval_date')
+    date_hierarchy = 'submission_date'
+    ordering = ('status', 'submission_date')

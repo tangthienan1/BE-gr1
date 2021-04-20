@@ -38,7 +38,7 @@ class Contribution(models.Model):
                                 related_name='contributions')
     slug = models.SlugField(max_length=255,unique_for_date='approval_date') 
     file = models.FileField(upload_to=get_path,
-                            validators=[FileTypeValidator(IMAGE_EXTENSION + DOCUMENT_EXTENSION)])
+                            validators=[FileTypeValidator(('jpg', 'png', 'jpeg', 'doc', 'docx', 'pdf'))])
     approval_date = models.DateTimeField(default=None, blank=True, null=True)
     submission_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
@@ -47,7 +47,7 @@ class Contribution(models.Model):
                               default='pending')
 
     class Meta:
-        ordering = ('-approval_date',) # sorting in descending order. most recent approved appear first
+        ordering = ('-submission_date',) # sorting in descending order. most recent approved appear first
 
     def __str__(self):
         return self.title

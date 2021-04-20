@@ -7,11 +7,11 @@ from .models import Contribution
 from ..info.models import Info
 from .serializers import ContributionCreateSerializer, ContributionSerializer
 from django.core.mail import send_mail
-
 class ContributionViewSet(viewsets.ModelViewSet):
     queryset = Contribution.objects.all()
     serializer_class = ContributionSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
     
 
     def create(self, request, *args, **kwargs):
@@ -31,10 +31,27 @@ class ContributionViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+
     # Get list of contributions by faculty_id. Example URL : api/contribution/by-faculty/1/
     @action(detail=False, methods=['get'], url_path='by-faculty/(?P<faculty_id>[^/.]+)')
     def faculty(self, request, *args, **kwargs):
         queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'])
+        serializer = ContributionSerializer(queryset, many=True)
+        if not queryset:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], url_path='approved/(?P<faculty_id>[^/.]+)')
+    def approved(self, request, *args, **kwargs):
+        queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'], status='approved')
+        serializer = ContributionSerializer(queryset, many=True)
+        if not queryset:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], url_path='pending/(?P<faculty_id>[^/.]+)')
+    def pending(self, request, *args, **kwargs):
+        queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'], status='pending')
         serializer = ContributionSerializer(queryset, many=True)
         if not queryset:
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)

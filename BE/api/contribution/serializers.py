@@ -14,6 +14,7 @@ class ContributionSerializer(serializers.ModelSerializer):
         model = Contribution
         fields = '__all__'
         
+        
 
 class ContributionCreateSerializer(serializers.ModelSerializer):
     file = serializers.FileField(max_length=None, allow_empty_file=False, required=True)
