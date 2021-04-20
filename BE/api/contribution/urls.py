@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from .views import ContributionViewSet
 
 router = DefaultRouter()
-router.register(r'', ContributionViewSet)
+router.register('', ContributionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

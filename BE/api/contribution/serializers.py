@@ -4,7 +4,7 @@ from .models import Contribution
 
 
 
-class ContributionSerializer(serializers.HyperlinkedModelSerializer):
+class ContributionSerializer(serializers.ModelSerializer):
     file = serializers.FileField(max_length=None, allow_empty_file=False, required=True)
     submission_date = serializers.DateTimeField(format="%d-%m-%Y")
     approval_date = serializers.DateTimeField(format="%d-%m-%Y")
@@ -15,7 +15,7 @@ class ContributionSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
         
 
-class ContributionCreateSerializer(serializers.HyperlinkedModelSerializer):
+class ContributionCreateSerializer(serializers.ModelSerializer):
     file = serializers.FileField(max_length=None, allow_empty_file=False, required=True)
 
     class Meta:

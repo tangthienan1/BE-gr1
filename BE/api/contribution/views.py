@@ -31,23 +31,8 @@ class ContributionViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-    '''
-    def perform_create(self, serializer):
-        current_info = self.request.user.info
-        serializer.save(author=current_info, faculty=current_info.faculty)
-        recipient = Info.objects.filter(faculty_id=serializer.validated_data.get('faculty_id')).filter(role_id=2)
-        recipient_email = recipient.email
-        send_mail(
-            'New Contribution Notification',
-            'A new contribution has been submitted within your faculty.\nPlease review within 14 days.',
-            'greenwichmagazinenotiy@gmail.com',
-            [recipient_email], # coordinator emails here
-            fail_silently=False,
-        )
-    '''
-
     # Get list of contributions by faculty_id. Example URL : api/contribution/by-faculty/1/
-    @action(detail=False, methods=['get'], url_path=r'^by-faculty/(?P<faculty_id>\d+)/$')
+    @action(detail=False, methods=['get'], url_path='by-faculty/(?P<faculty_id>[^/.]+)')
     def faculty(self, request, *args, **kwargs):
         queryset = Contribution.objects.filter(faculty=self.kwargs['faculty_id'])
         serializer = ContributionSerializer(queryset, many=True)
