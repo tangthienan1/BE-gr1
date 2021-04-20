@@ -1,17 +1,54 @@
-from django.db import models
-from ..info.models import Info
-# Create your models here. ok
+import os.path
+from uuid import uuid4
 
+from django.db import models
+
+from ..faculty.models import Faculty
+from ..info.models import Info
+from .validators import FileTypeValidator
+
+def get_path(instance, filename):
+    file_ext = os.path.splitext(filename)[1]
+    if file_ext in Contribution.IMAGE_EXTENSION:
+        file_path = 'images/'
+    if file_ext in Contribution.DOCUMENT_EXTENSION:
+        file_path = 'documents/'
+    if instance.pk:
+        filename = '{}.{}'.format(instance.pk, file_ext)
+    else:
+        filename = '{}.{}'.format(uuid4().hex, file_ext)
+    return os.path.join(file_path, filename)
 
 class Contribution(models.Model):
-    contribution_id = models.AutoField(primary_key=True)
-    sub_date = models.TimeField(auto_now_add=True)
-    aprv_date = models.DateTimeField(blank=True, null=True)
-    status = models.BooleanField(default=False)
-    img = models.ImageField(upload_to='images/', blank=True, null=True)
-    document = models.FileField(upload_to='word/')
-    infoID = models.ForeignKey(Info, on_delete=models.CASCADE)
-    pass
+    IMAGE_EXTENSION = ('.jpg', '.jpeg', '.png')
+    DOCUMENT_EXTENSION = ('.doc', '.docx', '.pdf')
+    STATUS = (
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('denied', 'Denied'),
+    )
+
+    author = models.ForeignKey(Info, 
+                               on_delete=models.CASCADE, 
+                               related_name='contributions')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    faculty = models.ForeignKey(Faculty,
+                                on_delete=models.CASCADE,
+                                related_name='contributions')
+    slug = models.SlugField(max_length=255,unique_for_date='approval_date') 
+    file = models.FileField(upload_to=get_path,
+                            validators=[FileTypeValidator(IMAGE_EXTENSION + DOCUMENT_EXTENSION)])
+    approval_date = models.DateTimeField(default=None, blank=True, null=True)
+    submission_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10, 
+                              choices=STATUS, 
+                              default='pending')
+
+    class Meta:
+        ordering = ('-approval_date',) # sorting in descending order. most recent approved appear first
 
     def __str__(self):
-        return self.contributionID
+        return self.title
+
